@@ -11,9 +11,10 @@ exports.getMentorStudents = (req, res, next) => {
 exports.getMentorSessions = (req, res, next) => {
     const token = req.headers.authorization.split(" ")[1];
     let headers
+    console.log("items"+(req.query.range*10)+"-"+(req.query.range*10+19))
     if(req.query["life-cycle-status"]==="canceled,completed,late canceled,marked student as absent"){
         headers = {
-            "range" : "items"+(req.query.range*10)+"-"+(req.query.range*10+19),
+            "range" : "items="+(req.query.range*10)+"-"+(req.query.range*10+19),
             "Accept": 'application/json',
             'Content-Type': 'application/json',
             "Authorization": `Bearer ${token}`,
@@ -53,7 +54,6 @@ exports.getMentorSessions = (req, res, next) => {
 }
 
 exports.getEvents = (req, res, next) => {
-    console.log(req.params);
 
     const token = req.headers.authorization.split(" ")[1];
     
@@ -67,7 +67,6 @@ exports.getEvents = (req, res, next) => {
         }
     })
     .then((response) => {
-        console.log(response.data)
         res.status(200).json(response.data)
     })
     .catch((error) => {
